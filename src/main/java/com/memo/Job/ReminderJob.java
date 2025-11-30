@@ -20,6 +20,7 @@ public class ReminderJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
+        System.out.println("Reminder job is Running");
         PendingPushInfo alert = PendingPushInfoManager.getAlert();
 
         if (alert == null || !alert.isPending()) {
