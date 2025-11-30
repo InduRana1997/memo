@@ -1,5 +1,8 @@
 package com.memo.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MemoEventService {
 
     public String getLocalBranch() {
@@ -11,4 +14,15 @@ public class MemoEventService {
             return "";
         }
     }
+
+    public void showWindowsNotification(String title, String message) {
+        try {
+            String command = "powershell -command \"New-BurntToastNotification -Text '"
+                    + title + "', '" + message + "'\"";
+            Runtime.getRuntime().exec(command);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

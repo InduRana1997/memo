@@ -1,5 +1,7 @@
 package com.memo.controller;
 
+import com.memo.service.MemoEventService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,9 @@ import tools.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping("/memo")
 public class MemoWebHookController {
+
+    @Autowired
+    private MemoEventService memoEventService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -28,6 +33,13 @@ public class MemoWebHookController {
 
         System.out.println("Branch: " + branch);
         System.out.println("Pusher: " + username);
+        // Show notification only if it's your working branch
+        if (memoEventService.getLocalBranch().equals(branch)) {
+            memoEventService.showWindowsNotification(
+                    "Memo Alert",
+                    "New push on your branch: " + branch + " by " + username
+            );
+        }
         return ResponseEntity.ok("received");
     }
 }
