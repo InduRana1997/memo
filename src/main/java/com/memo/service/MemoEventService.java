@@ -7,6 +7,7 @@ public class MemoEventService {
 
     public String getLocalBranch() {
         try {
+            //Running the command
             Process process = Runtime.getRuntime().exec("git rev-parse --abbrev-ref HEAD");
             process.waitFor();
             return new String(process.getInputStream().readAllBytes()).trim();
