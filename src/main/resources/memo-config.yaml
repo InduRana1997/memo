@@ -1,0 +1,5 @@
+# memo-config.yaml
+webhookPath: /memo/push-event
+port: 8080
+projectPath: C:/Users/you/Projects/myrepo
+notifySound: true
